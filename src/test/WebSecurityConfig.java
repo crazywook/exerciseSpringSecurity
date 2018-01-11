@@ -17,9 +17,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 
 		http.authorizeRequests().antMatchers("/main/**").hasRole("User");
 
-		http.httpBasic().and().authorizeRequests()
-			.antMatchers("/login")
-			.anonymous();
+		http.httpBasic()
+			.and().formLogin().failureHandler(new CustomAuthenticationFailureHandler());
 
 //		http //auto-config="true"
 //        .authorizeRequests()

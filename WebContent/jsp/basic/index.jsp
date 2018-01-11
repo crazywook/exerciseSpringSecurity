@@ -2,6 +2,7 @@
 <%-- <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> --%>
 <%-- <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %> --%>
 <!doctype html>
+<html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
@@ -16,9 +17,9 @@
 	</div>
 </body>
 <script src="jsp/basic/index.js" ></script>
+<script>
+	document.querySelector("button").addEventListener("click", function(e){
+		location.href="/login";
+	});
+</script>
 </html>
-<!-- <script> -->
-// 	document.querySelector("button").addEventListener("click", function(e){
-// 		location.href="/login.jsp";
-// 	});
-<!-- </script> -->
