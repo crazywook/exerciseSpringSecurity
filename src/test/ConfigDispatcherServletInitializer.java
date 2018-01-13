@@ -2,12 +2,12 @@ package test;
 
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
-public class ApplicationInitailizer extends AbstractAnnotationConfigDispatcherServletInitializer{
+public class ConfigDispatcherServletInitializer extends AbstractAnnotationConfigDispatcherServletInitializer{
 
 	@Override
 	protected Class<?>[] getRootConfigClasses() {
 		// TODO Auto-generated method stub
-		return new Class[] {WebSecurityConfig.class};
+		return new Class[] {CustomSecurityConfigurerAdapter.class};
 	}
 
 	@Override

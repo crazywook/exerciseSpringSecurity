@@ -33,4 +33,11 @@ public class CommonController {
 		System.out.println("serveltPath: "+req.getServletPath());
 		return "success";
 	}
+	
+	@RequestMapping("/main/main")
+	@ResponseBody
+	public String mainPage(HttpServletRequest req) {
+		System.out.println("serveltPath: "+req.getServletPath());
+		return "main";
+	}
 }

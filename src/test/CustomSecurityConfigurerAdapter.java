@@ -1,24 +1,32 @@
 package test;
 
 import org.apache.log4j.Logger;
+//import org.apache.log4j.Logger;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
+
+import test.filter.OriginalHeader;
 
 @EnableWebSecurity
-public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
+public class CustomSecurityConfigurerAdapter extends WebSecurityConfigurerAdapter{
 
-	public static Logger logger = Logger.getLogger(WebSecurityConfig.class);
-
+	public static Logger logger = Logger.getLogger(CustomSecurityConfigurerAdapter.class);
+	
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-
+		
 		logger.info("http: "+http);
-
-		http.authorizeRequests().antMatchers("/main/**").hasRole("User");
-
-		http.httpBasic()
-			.and().formLogin().failureHandler(new CustomAuthenticationFailureHandler());
+		
+		http.httpBasic();
+//		http.addFilterAfter(new OriginalHeader(), BasicAuthenticationFilter.class);
+//		http.authorizeRequests().antMatchers("/**").permitAll();
+		http.authorizeRequests().antMatchers("/main/**").hasRole("ADMIN");
+		
+		http.formLogin().loginPage("/login")
+			.failureHandler(new CustomAuthenticationFailureHandler());	
+		
 
 //		http //auto-config="true"
 //        .authorizeRequests()
@@ -35,8 +43,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 		http.requiresChannel()
 			.antMatchers("/login.do")
 			.requiresSecure();
-
-
 
 //			.antMatchers("/users/{userId}")
 //			.access("@authenticationCheckHandler.checkUserId(authentication, #userId)")

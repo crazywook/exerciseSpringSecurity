@@ -1,6 +1,7 @@
 package test;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -21,9 +22,11 @@ public class CustomAuthenticationFailureHandler extends SimpleUrlAuthenticationF
 	public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response,
 			AuthenticationException exception) throws IOException, ServletException {
 		
-		logger.info("login failed... {}");
-		super.onAuthenticationFailure(request, response, exception);
-		RequestDispatcher dispatcher =  request.getRequestDispatcher("/login");
-		dispatcher.forward(request, response);
+		logger.info("login failed123.. {}");
+		response.setStatus(401);
+		PrintWriter out = response.getWriter();		
+		out.write("login fail");
+//		super.onAuthenticationFailure(request, response, exception);
+		
 	}
 }

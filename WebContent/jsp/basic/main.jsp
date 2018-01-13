@@ -13,5 +13,16 @@
 	<sec:authorize>
 		<sec:authentication property="name"/>님 안녕하세요.
 	</sec:authorize>
+	<form>
+		<input type="text" value="Test">
+		<button>입력</button>
+	</form>	
 </body>
+<script type="module" src="/js/commons/myQuery.js"></script>
+<!-- <script type="module" src="/js/auth/springSecurityLogin.js"></script> -->
+<script>
+	fetch("/main/main", {method: "post"})
+		.then(res=>res.text())
+		.then(console.log);		
+</script>
 </html>
