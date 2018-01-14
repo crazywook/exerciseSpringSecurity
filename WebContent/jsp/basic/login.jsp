@@ -14,10 +14,12 @@
 </head>
 <body>
 	<form name="loginForm" action="/test" method="post">
-		<input name="j_username" autofocus>
-		<input name="j_password" >	
+		<input name="username" autofocus>
+		<input name="password" >	
 		<button>로그인</button>
 	</form>
+	<br>
+	<a href="/logout" >logout</a>
 </body>
 
 <script>

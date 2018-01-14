@@ -16,11 +16,15 @@ function loginProcess(e) {
 	const form = document.loginForm;	
 	const body = $(form).serializeArray();
 	const url = "/j_spring_security_check";
-	const settings = $settings.post(url, body);	
-	
+	const settings = $settings.post(url, body);
+	console.log(body);
+	console.log("data",settings.data);
 	$.ajax(settings)
 		.done(handleSuccess)
 		.fail(handleFailure);	
+	
+//	settings.body = new FormData(document.loginForm);
+//	settings.body = '{"j_username": "kim"}';
 	
 //	fetch(url, settings)
 //		.then(function(r) {
@@ -38,8 +42,8 @@ function loginProcess(e) {
 	}
 	function handleFailure(r, err, msg) {
 		console.log(r);
-		console.log(err);
-		console.log(msg);
+		console.log("reason: ", r.responseText);		
+		console.log("status: ", r.status);		
 	}	
 	
 	return false;
