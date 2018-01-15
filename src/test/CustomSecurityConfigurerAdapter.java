@@ -49,7 +49,7 @@ public class CustomSecurityConfigurerAdapter extends WebSecurityConfigurerAdapte
 		
 		http.formLogin().loginPage("/login")
 			.usernameParameter("username").passwordParameter("password")
-			.successHandler(new CustomAuthenticationSuccessHandler())
+//			.successHandler(new CustomAuthenticationSuccessHandler())
 			.failureHandler(new CustomAuthenticationFailureHandler())
 			.permitAll()
 			.and()

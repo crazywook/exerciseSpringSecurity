@@ -12,7 +12,7 @@
 <link rel="stylesheet" href="jsp/basic/index.css" />
 </head>
 <body>
-	<div class="center middle">
+	<div class="flex middle">
 		<button>Get Started</button>
 	</div>
 </body>
