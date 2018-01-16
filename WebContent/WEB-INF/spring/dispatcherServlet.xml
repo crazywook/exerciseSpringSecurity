@@ -13,12 +13,14 @@
 	<mvc:view-controller path="/index" view-name="/index.jsp"/>
 	<mvc:view-controller path="/main" view-name="/main.jsp"/>
 	<mvc:view-controller path="/login" view-name="/login.jsp"/>
-	
+
 	<mvc:resources location="/commons/js/" mapping="/js/**"></mvc:resources>
-	<mvc:resources location="/commons/css/" mapping="/css/**"></mvc:resources>
-	
+	<mvc:resources location="/commons/css/" mapping="/css/**">
+		
+	</mvc:resources>
+
 	<mvc:annotation-driven />
-	
+
 	<context:component-scan base-package="test"></context:component-scan>
 
 	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver" >

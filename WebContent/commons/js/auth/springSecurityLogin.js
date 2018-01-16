@@ -35,11 +35,26 @@ function loginProcess(e) {
 //			}
 //		}).catch(function(r){
 //			console.log(r);
-//		});
-//	
-	function handleSuccess(r) {
-		console.info(r);
+//		});	
+	
+	function handleSuccess(r) {		
+		console.log(r);
+		const responseJSON = JSON.parse(r);
+		const redirectUrl = responseJSON.redirectUrl;
+		location.href = redirectUrl;
+//		replaceDocument(r);
 	}
+	
+	function replaceDocument(r) {
+		const doc = new DOMParser().parseFromString(r, "text/html");
+		console.log(doc);
+		console.log(doc.childNodes)
+		const htmlNode = doc.childNodes[1];
+		const el = doc.childNodes[1];
+		const oldHtml = document.childNodes[1];
+		document.replaceChild(el, oldHtml);	
+	}
+	
 	function handleFailure(r, err, msg) {
 		console.log(r);
 		console.log("reason: ", r.responseText);		
