@@ -30,11 +30,11 @@ public class CustomHttpServletRequestWrapper extends HttpServletRequestWrapper{
 	
 	public Enumeration<String> getHeaderNames(){
 		HttpServletRequest request = (HttpServletRequest)getRequest();
-		List<String> list = new ArrayList<>();
+		List<String> list = new ArrayList<>();		
 		for( Enumeration<String> e = request.getHeaderNames() ;  e.hasMoreElements() ; ) {
-			String csrfHeader = e.nextElement();
-			logger.info("enumeratoin: "+csrfHeader);
-			list.add(csrfHeader);
+			String headerName = e.nextElement();
+			logger.info(headerName+" : "+request.getHeader(headerName));
+			list.add(headerName);
 		}			
 		for( Iterator<String> i = headerMap.keySet().iterator() ; i.hasNext() ; ){
 			list.add(i.next());

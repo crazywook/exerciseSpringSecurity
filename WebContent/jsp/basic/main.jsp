@@ -16,6 +16,7 @@
 			<div class="infoBar" >
 				<sec:authorize access="hasRole('USER')">
 					<sec:authentication property="name"/>님 안녕하세요.
+					<a href="/logout" >logout</a>
 				</sec:authorize>
 				<form action="/search">
 					<input type="text" value="Test">

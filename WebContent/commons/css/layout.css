@@ -1,7 +1,8 @@
 @CHARSET "UTF-8";
 
-html, body {
-	font : 1rem;
+html, body {	
+	font-size : 1rem;
+	font-family: sans-serif;
 }
 body {
 	background-color : white;
