@@ -1,1 +1,5 @@
 ignore/
+target/
+.classpath
+.project
+.springBeans
