@@ -1,0 +1,10 @@
+@CHARSET "UTF-8";
+button {
+	width : 10rem;
+	height : 2.5rem;
+	border : 0;
+	background-color : #4263eb;
+	color : #dbe4ff;
+	font-size : 1.5rem;
+	font-weight : 300;
+}

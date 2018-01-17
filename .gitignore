@@ -1,0 +1,7 @@
+ignore/
+target/
+.classpath
+.project
+.springBeans
+.settings/
+ignoreTest.txt
