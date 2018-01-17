@@ -30,20 +30,21 @@ public class CustomSecurityConfigurerAdapter extends WebSecurityConfigurerAdapte
 	DataSource dataSource;
 	
 //	@Autowired
-//    private MyBasicAuthenticationEntryPoint authenticationEntryPoint;
+//  private MyBasicAuthenticationEntryPoint authenticationEntryPoint;
 	
-	@Autowired
-    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
+	@Override
+    public void configure(AuthenticationManagerBuilder auth) throws Exception {
 //		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();		
 		String password = passwordEncoder.encode("1234");
 		logger.info("password: "+password);
 		
-//		String selectAuthQuery = "select * from authorities where username = ?";
-//		auth.jdbcAuthentication().dataSource(dataSource).authoritiesByUsernameQuery(selectAuthQuery);		
+		String selectUserQuery = "select id, password, enabled from user where id = ?";
+		String selectRolesQuery = "select id, roles from user_roles where id = ?";
+		auth.jdbcAuthentication().dataSource(dataSource).usersByUsernameQuery(selectUserQuery).authoritiesByUsernameQuery(selectRolesQuery);		
 		
-        auth.inMemoryAuthentication()
-          .withUser("user").password(password)
-          .authorities("ROLE_USER");
+//        auth.inMemoryAuthentication()
+//          .withUser("user").password(password)
+//          .authorities("ROLE_USER");
     }
 	
 //	@SuppressWarnings("deprecation")
@@ -57,15 +58,13 @@ public class CustomSecurityConfigurerAdapter extends WebSecurityConfigurerAdapte
 		return new BCryptPasswordEncoder();
 	}
 	
-		
-	
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		
 		logger.info("http: "+http);
 		
 		http.httpBasic(); //.authenticationEntryPoint(authenticationEntryPoint);
-//		http.addFilterBefore(new OriginalHeader(), ChannelProcessingFilter.class);
+		http.addFilterBefore(new OriginalHeader(), ChannelProcessingFilter.class);
 //		http.authorizeRequests().antMatchers("/**").permitAll();
 		http.authorizeRequests().antMatchers("/css/**").permitAll()
 			.antMatchers("/img/**").permitAll()

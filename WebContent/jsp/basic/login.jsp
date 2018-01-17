@@ -31,4 +31,13 @@
 </script>
 <script defer type="module" src="/js/commons/myQuery.js"></script>
 <script defer type="module" src="/js/auth/springSecurityLogin.js"></script>
+<script>
+	function encodePassword() {
+		const password = "1234";
+		
+		$.get("/api/v0/user")
+			.done(console.log)
+			.fail(console.error);
+	}
+</script>
 </html>

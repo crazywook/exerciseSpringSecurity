@@ -15,12 +15,16 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import test.modifier.CustomHttpServletRequestWrapper;
 
 public class OriginalHeader implements Filter {	
 	
 	Logger logger = Logger.getLogger(getClass());
+	
+	@Autowired
+	PasswordEncoder passwordEncoder;
 	
 	@Override
 	public void doFilter(ServletRequest req, ServletResponse res, FilterChain chain)
@@ -29,8 +33,9 @@ public class OriginalHeader implements Filter {
 		HttpServletRequest httpReq = (HttpServletRequest)req;
 		String servletPath = httpReq.getServletPath();
 		
-		if(ignoreFilter(servletPath)) {
-			req.getRequestDispatcher(httpReq.getServletPath()).forward(req, res);			
+//		if(ignoreFilter(servletPath)) {
+		if(req == null) {			
+//			req.getRequestDispatcher(httpReq.getServletPath()).forward(req, res);			
 		}else {
 			logger.info("servletPath: "+servletPath);
 			HttpSession session = httpReq.getSession();		
