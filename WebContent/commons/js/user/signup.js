@@ -1,43 +1,34 @@
 /**
  * 
  */
-import $$ from "../commons/myQuery.js";
-import {$settings} from "../commons/myQuery.js";
-//console.log(($ == undefined));
-//if($ == undefined) var $ = $$;  
+console.log("import signup");
+import $$ from "/js/commons/myQuery.js";
+import {$settings} from "/js/commons/myQuery.js";
 
-export default function loginProcess(e) {
-	console.log("loginProcess");
-	e.preventDefault();
-	const form = document.loginForm;	
+export default function singup(e) {
+	console.log("singupProcess");
+	e.preventDefault();	
+	
+	console.log("calle: ", arguments.calle);
+	const form = document.signupForm;	
 	const body = $(form).serializeArray();
-	const url = "/j_spring_security_check";
-	const settings = $settings.post(url, body);
+	const url = "/api/v0/user";
+	const settings = $settings.post(url, body);	
+	
 	console.log(body);
 	console.log("data",settings.data);
+	console.log(settings);
 	$.ajax(settings)
 		.done(handleSuccess)
 		.fail(handleFailure);	
 	
-//	settings.body = new FormData(document.loginForm);
-//	settings.body = '{"j_username": "kim"}';
-	
-//	fetch(url, settings)
-//		.then(function(r) {
-//			if(r.ok) {
-//				handleSuccess(r.json());				
-//			}else {				
-//				return Promise.reject(r);
-//			}
-//		}).catch(function(r){
-//			console.log(r);
-//		});	
-	
 	function handleSuccess(r) {		
-		console.log(r);
+//		console.log(r);
 		const responseJSON = JSON.parse(r);
 		const redirectUrl = responseJSON.redirectUrl;
-		location.href = redirectUrl;
+		console.log("redirectUrl: "+redirectUrl);
+		if(redirectUrl) location.href = redirectUrl;
+//		
 //		replaceDocument(r);
 	}
 	
@@ -58,4 +49,4 @@ export default function loginProcess(e) {
 	}	
 	
 	return false;
-}
+};

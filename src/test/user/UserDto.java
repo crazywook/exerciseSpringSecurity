@@ -3,6 +3,8 @@ package test.user;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
+import test.annotation.ValidEmail;
+
 public class UserDto {
 	
 	@NotNull
@@ -24,6 +26,7 @@ public class UserDto {
      
     @NotNull
     @NotEmpty
+    @ValidEmail
     private String email;
     
     public String getId() {

@@ -8,9 +8,7 @@
 <meta id="_csrf_header" name="_csrf_header" th:content="${_csrf.headerName}"/>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
-<script 
-  src="https://code.jquery.com/jquery-3.2.1.min.js"
-  integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+<script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
   crossorigin="anonymous"></script>
 </head>
 <body>
@@ -20,7 +18,7 @@
 		<button>로그인</button>
 	</form>
 	<br>
-	
+	<a href="/signup">signup</a>
 </body>
 
 <script>
@@ -29,8 +27,11 @@
 		"headerName" : "${_csrf.headerName}"
 	};
 </script>
-<script defer type="module" src="/js/commons/myQuery.js"></script>
-<script defer type="module" src="/js/auth/springSecurityLogin.js"></script>
+<script type="module" >
+	import loginProcess from "/js/auth/springSecurityLogin.js";
+
+	document.addEventListener("submit", loginProcess);
+</script>
 <script>
 	function encodePassword() {
 		const password = "1234";

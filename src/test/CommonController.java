@@ -6,6 +6,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.apache.log4j.BasicConfigurator;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -27,11 +28,18 @@ public class CommonController {
 		return "success";
 	}
 
-	@RequestMapping("/login.do")
-	@ResponseBody
-	public String login(HttpServletRequest req) {
+	@RequestMapping("/jspTest")
+	public String test(HttpServletRequest req) {
 		System.out.println("serveltPath: "+req.getServletPath());
-		return "success";
+		
+		return "redirect:jspTest.jsp";
+	}
+	
+	@RequestMapping("/jspTest2")
+	public String test2(HttpServletRequest req) {
+		System.out.println("serveltPath: "+req.getServletPath());
+		
+		return "/test/jspTest.jsp";
 	}
 	
 	@RequestMapping("/main/main")

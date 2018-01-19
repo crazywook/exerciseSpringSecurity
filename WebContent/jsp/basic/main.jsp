@@ -30,11 +30,8 @@
 		</div>
 	</div>
 </body>
-<script type="module" src="/js/commons/myQuery.js"></script>
-<script type="module" src="/js/view/router.js"></script>
 <script type="module">
-	import route from "../commons/js/view/router.js";
-	"use strict";
+	import route from "../commons/js/view/router.js";	
 	$("form").submit(e=>e.preventDefault());	
 	
 	route("/jsp/member/memberList.jsp?payType=임금");	

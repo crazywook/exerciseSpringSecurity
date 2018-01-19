@@ -8,6 +8,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 //import org.apache.log4j.Logger;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -59,6 +60,12 @@ public class CustomSecurityConfigurerAdapter extends WebSecurityConfigurerAdapte
 	}
 	
 	@Override
+	public void configure(WebSecurity web) throws Exception {
+		web.ignoring().antMatchers("/jsp/**/*.js");
+		super.configure(web);
+	}
+	
+	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		
 		logger.info("http: "+http);
@@ -66,9 +73,12 @@ public class CustomSecurityConfigurerAdapter extends WebSecurityConfigurerAdapte
 		http.httpBasic(); //.authenticationEntryPoint(authenticationEntryPoint);
 		http.addFilterBefore(new OriginalHeader(), ChannelProcessingFilter.class);
 //		http.authorizeRequests().antMatchers("/**").permitAll();
+		
 		http.authorizeRequests().antMatchers("/css/**").permitAll()
-			.antMatchers("/img/**").permitAll()
-			.antMatchers("/js/**").permitAll();
+			.antMatchers("/img/**").permitAll();
+//			.antMatchers("/js/**").permitAll()
+//			.antMatchers("/jsp/**/*.js").permitAll();
+		
 		http.authorizeRequests().antMatchers("/main/**").hasRole("USER");
 		
 		http.formLogin().loginPage("/login")

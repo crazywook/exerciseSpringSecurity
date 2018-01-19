@@ -11,8 +11,8 @@
 <!--   <filter-mapping> -->
 <!-- 	<filter-name>X-CSRF-TOKEN</filter-name> -->
 <!-- 	<url-pattern>*</url-pattern>	 -->
-<!--   </filter-mapping> -->
-  
+<!--   </filter-mapping> -->  	
+  	
   	<context-param>
 		<param-name>contextConfigLocation</param-name>
 		<param-value>/WEB-INF/spring/context-*.xml</param-value>
