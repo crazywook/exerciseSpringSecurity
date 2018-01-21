@@ -75,5 +75,11 @@ public class UserDto {
 
 	public void setEmail(String email) {
 		this.email = email;
-	}     
+	}
+
+	@Override
+	public String toString() {
+		return "UserDto [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", password=" + password
+				+ ", matchingPassword=" + matchingPassword + ", email=" + email + "]";
+	}
 }

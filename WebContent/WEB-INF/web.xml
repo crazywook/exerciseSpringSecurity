@@ -13,10 +13,10 @@
 <!-- 	<url-pattern>*</url-pattern>	 -->
 <!--   </filter-mapping> -->  	
   	
-  	<context-param>
-		<param-name>contextConfigLocation</param-name>
-		<param-value>/WEB-INF/spring/context-*.xml</param-value>
-	</context-param>
+<!--   	<context-param> -->
+<!-- 		<param-name>contextConfigLocation</param-name> -->
+<!-- 		<param-value>/WEB-INF/spring/context-*.xml</param-value> -->
+<!-- 	</context-param> -->
 
 	<!-- Bootstraps the root web application context before servlet initialization -->
 <!-- 	<listener> -->

@@ -12,7 +12,7 @@
 </head>
 <body>
 	<h1>form</h1>
-	<form action="/" >
+	<form name="signupForm" action="/" >
 	    <div>
 	        <label >first</label>
 	        <input />
@@ -25,12 +25,12 @@
 	    </div>
 	    <div>
 	        <label >email</label>
-	        <input type="email" />
+	        <input name="email" required/>
 	        <p>Validation error</p>
 	    </div>
 	    <div>
 	        <label >password</label>
-	        <input type="password" />
+	        <input name="password" type="password" />
 	        <p>Validation error</p>
 	    </div>
 	    <div>

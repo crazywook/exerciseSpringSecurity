@@ -10,7 +10,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 //@EnableWebSecurity
 public class WebSecurityConfig {
 	
-	@Bean
+//	@Bean
 	public UserDetailsService userDetailsService() {
 		InMemoryUserDetailsManager manager = new InMemoryUserDetailsManager();
 		manager.createUser(User.withDefaultPasswordEncoder().username("user").password("password").roles("USER").build());

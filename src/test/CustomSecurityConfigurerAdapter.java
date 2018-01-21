@@ -1,5 +1,7 @@
 package test;
 
+import java.util.HashMap;
+
 import org.apache.log4j.Logger;
 import org.apache.tomcat.jdbc.pool.DataSource;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +18,11 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.access.channel.ChannelProcessingFilter;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
+import com.mysql.fabric.HashShardMapping;
+
 import test.filter.OriginalHeader;
+import test.user.CustomUserDetail;
+import test.user.MyUserDetailService;
 
 @Configuration
 @EnableWebSecurity
@@ -41,12 +47,14 @@ public class CustomSecurityConfigurerAdapter extends WebSecurityConfigurerAdapte
 		
 		String selectUserQuery = "select id, password, enabled from user where id = ?";
 		String selectRolesQuery = "select id, roles from user_roles where id = ?";
-		auth.jdbcAuthentication().dataSource(dataSource).usersByUsernameQuery(selectUserQuery).authoritiesByUsernameQuery(selectRolesQuery);		
+		auth.jdbcAuthentication().dataSource(dataSource)
+			.usersByUsernameQuery(selectUserQuery)
+			.authoritiesByUsernameQuery(selectRolesQuery);					
 		
 //        auth.inMemoryAuthentication()
 //          .withUser("user").password(password)
 //          .authorities("ROLE_USER");
-    }
+    }	
 	
 //	@SuppressWarnings("deprecation")
 //	@Bean
@@ -61,8 +69,9 @@ public class CustomSecurityConfigurerAdapter extends WebSecurityConfigurerAdapte
 	
 	@Override
 	public void configure(WebSecurity web) throws Exception {
-		web.ignoring().antMatchers("/jsp/**/*.js");
-		super.configure(web);
+		web.ignoring().antMatchers("/css/**")
+			.antMatchers("/js/**")
+			.antMatchers("/img/**");
 	}
 	
 	@Override
@@ -74,15 +83,16 @@ public class CustomSecurityConfigurerAdapter extends WebSecurityConfigurerAdapte
 		http.addFilterBefore(new OriginalHeader(), ChannelProcessingFilter.class);
 //		http.authorizeRequests().antMatchers("/**").permitAll();
 		
-		http.authorizeRequests().antMatchers("/css/**").permitAll()
-			.antMatchers("/img/**").permitAll();
+//		http.authorizeRequests().antMatchers("/css/**").permitAll()
+//			.antMatchers("/img/**").permitAll();
 //			.antMatchers("/js/**").permitAll()
 //			.antMatchers("/jsp/**/*.js").permitAll();
 		
 		http.authorizeRequests().antMatchers("/main/**").hasRole("USER");
 		
 		http.formLogin().loginPage("/login")
-			.usernameParameter("username").passwordParameter("password")			
+			.usernameParameter("username").passwordParameter("password")
+			.loginProcessingUrl("/j_spring_security_check")
 			.successHandler(new CustomAuthenticationSuccessHandler())
 			.failureHandler(new CustomAuthenticationFailureHandler())
 			.permitAll()

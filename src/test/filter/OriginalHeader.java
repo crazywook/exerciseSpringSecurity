@@ -32,22 +32,28 @@ public class OriginalHeader implements Filter {
 		
 		HttpServletRequest httpReq = (HttpServletRequest)req;
 		String servletPath = httpReq.getServletPath();
-		
+		logger.debug("req: "+req);
+		Object headerValue = httpReq.getHeader("X-Requested-With");
+		logger.debug("X-Requested-With: "+headerValue);
 //		if(ignoreFilter(servletPath)) {
 		if(req == null) {			
 //			req.getRequestDispatcher(httpReq.getServletPath()).forward(req, res);			
-		}else {
+		}else if(headerValue == null) {
 			logger.info("servletPath: "+servletPath);
+			
 			HttpSession session = httpReq.getSession();		
 			
 			String[] initPath = new String[]{"/login", "/", "index", "/jsp/basic/index.jsp"};
 			List<String> initPathList = Arrays.asList(initPath);
 			if(initPathList.contains(servletPath)) {
 				session.setAttribute("redirectUrl", "/main");
-			}else {
+			}else if(servletPath.indexOf(".") == -1){
 				session.setAttribute("redirectUrl", servletPath);
 			}
 			logger.info("redirectUrl: "+session.getAttribute("redirectUrl"));
+			chain.doFilter(req, res);
+		}else {
+			
 			String lowerHeaderToken = (String)httpReq.getHeader("x-csrf-token");
 			String upperHeaderToken = (String)httpReq.getHeader("X-CSRF-TOKEN");
 			CustomHttpServletRequestWrapper reqWrapper = new CustomHttpServletRequestWrapper(httpReq);
