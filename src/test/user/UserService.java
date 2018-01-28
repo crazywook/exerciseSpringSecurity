@@ -15,12 +15,17 @@ public class UserService {
 	
 	private UserDetailsManager userDetailsManager;
 	
-	public void insertUser(User user) {		
+	public void createUser(User user) {		
 		
 		List<? extends GrantedAuthority> authorities = Arrays.asList(new SimpleGrantedAuthority("USER"));
 		UserDetails userDetails = new User(user.getName(), user.getPassword(), authorities);
 		userDetailsManager.createUser(userDetails);
 		JdbcUserDetailsManager jm;
 		JdbcDaoImpl dao;
+	}
+	
+	public void loadUser(User user) {
+		
+		
 	}
 }

@@ -3,7 +3,9 @@ package test.user;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.provisioning.UserDetailsManager;
+import org.springframework.stereotype.Component;
 
+@Component
 public class CustomUserDetailManager implements UserDetailsManager{
 
 	@Override

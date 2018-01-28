@@ -1,7 +1,5 @@
 package test;
 
-import java.util.HashMap;
-
 import org.apache.log4j.Logger;
 import org.apache.tomcat.jdbc.pool.DataSource;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,13 +14,10 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.access.channel.ChannelProcessingFilter;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
-import com.mysql.fabric.HashShardMapping;
-
 import test.filter.OriginalHeader;
-import test.user.CustomUserDetail;
-import test.user.MyUserDetailService;
 
 @Configuration
 @EnableWebSecurity
@@ -50,6 +45,7 @@ public class CustomSecurityConfigurerAdapter extends WebSecurityConfigurerAdapte
 		auth.jdbcAuthentication().dataSource(dataSource)
 			.usersByUsernameQuery(selectUserQuery)
 			.authoritiesByUsernameQuery(selectRolesQuery);					
+		
 		
 //        auth.inMemoryAuthentication()
 //          .withUser("user").password(password)
@@ -90,10 +86,13 @@ public class CustomSecurityConfigurerAdapter extends WebSecurityConfigurerAdapte
 		
 		http.authorizeRequests().antMatchers("/main/**").hasRole("USER");
 		
+		AuthenticationSuccessHandler successHandler = new CustomAuthenticationSuccessHandler();
+//		AuthenticationSuccessHandler successHandler = new SavedAjaxRequestAuthenticationHandler();
+		
 		http.formLogin().loginPage("/login")
 			.usernameParameter("username").passwordParameter("password")
 			.loginProcessingUrl("/j_spring_security_check")
-			.successHandler(new CustomAuthenticationSuccessHandler())
+			.successHandler(successHandler)
 			.failureHandler(new CustomAuthenticationFailureHandler())
 			.permitAll()
 			.and()

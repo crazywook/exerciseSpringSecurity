@@ -37,7 +37,7 @@ export default function loginProcess(e) {
 		console.log(r);
 		const responseJSON = JSON.parse(r);
 		const redirectUrl = responseJSON.redirectUrl;
-		location.href = redirectUrl;
+//		location.href = redirectUrl;
 //		replaceDocument(r);
 	}
 	

@@ -5,10 +5,14 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.apache.log4j.BasicConfigurator;
 import org.apache.log4j.Logger;
+import org.springframework.security.oauth2.provider.OAuth2Authentication;
+import org.springframework.security.oauth2.provider.authentication.OAuth2AuthenticationDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import test.annotation.ConfigureProperties;
 
 @Controller("commonController")
 public class CommonController {
@@ -48,4 +52,22 @@ public class CommonController {
 		System.out.println("serveltPath: "+req.getServletPath());
 		return "main";
 	}
+	
+	@RequestMapping("/annoTest")
+	@ResponseBody
+	@ConfigureProperties(properties="properties/oauth/oAuth.properties")
+	public String annotationTest(HttpServletRequest req) {
+		System.out.println("serveltPath: "+req.getServletPath());
+		return "main";
+	}
+	
+	@RequestMapping("/oAuth")
+	@ResponseBody
+	@ConfigureProperties(properties="properties/oauth/oAuth.properties")
+	public String annotationTest(OAuth2Authentication auth) {
+		
+		OAuth2AuthenticationDetails details = (OAuth2AuthenticationDetails)auth.getDetails();
+		return "main";
+	}
+	
 }
